@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleriston Monteiro | Líder de Utilidades</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Paleta inspirada nas cores do Palmeiras */
+            --gold: #006633;
+            /* cor principal (verde Palmeiras) */
+            --dark: #021a10;
+            /* fundo escuro com tom verde */
+            --light-dark: #08321f;
+            /* variação para seções */
+            --white: #FFFFFF;
+            --gray: #bcd9c1;
+            /* texto secundário em verde claro */
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* por padrão escondemos a imagem do about (desktop); será mostrada em mobile */
+        .about-photo {
+            display: none;
+        }
+
+        .about img,
+        .about .about-photo {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+
+        /* HEADER MINIMALISTA */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 6%;
+            position: fixed;
+            width: 100%;
+            height: 70px;
+            top: 0;
+            z-index: 1000;
+            background: transparent;
+            backdrop-filter: blur(15px);
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* HERO SECTION - SPLIT ELEGANTE */
+        .hero {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            padding: 0 0 0 6%;
+            /* padding-left only, sem margem direita */
+            justify-content: space-between;
+            position: relative;
+            /* torna o .hero-image absoluto relativo a esta seção */
+            padding-top: 80px;
+            /* espaço para header fixo */
+        }
+
+        .hero-content {
+            flex: 1 1 50%;
+            max-width: 720px;
+            padding-right: 8%;
+            /* maior espaçamento para não encostar na imagem */
+            z-index: 2;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            /* encosta na borda direita da viewport */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 47%;
+            /* ocupa metade da largura */
+            height: 80%;
+            background: linear-gradient(to right, var(--dark) 8%, transparent 50%), url('keu.jpg');
+            background-size: cover;
+            background-position: center right;
+            filter: none;
+            border-radius: 8px 0 0 8px;
+            /* arredonda só o lado esquerdo */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: clamp(3rem, 5vw, 5.5rem);
+            line-height: 1;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 20px 45px;
+            margin-top: 10px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+
+        /* SEÇÃO SOBRE (O STORYTELLING) */
+        .about {
+            padding: 150px 10%;
+            display: grid;
+            grid-template-columns: 1fr;
+            /* apenas uma coluna agora que removemos a imagem */
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about h2 {
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .about p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: justify;
+            margin-left: 6px;
+            margin-right: 6px;
+        }
+
+
+
+        /* SERVIÇOS / EXPERTISE */
+        .services {
+            padding: 100px 6%;
+            background: var(--light-dark);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-items: center;
+            /* centraliza os itens nas colunas */
+            justify-content: center;
+            /* centraliza a grade quando há colunas sobrando */
+        }
+
+        .service-card {
+            padding: 50px;
+            background: var(--light-dark);
+            border: 1px solid #072017;
+            transition: var(--transition);
+            width: 100%;
+            max-width: 420px;
+            /* limita a largura dos cards para melhorar centragem */
+        }
+
+        .service-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+        }
+
+        .service-card h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 80px 6%;
+            border-top: 1px solid #222;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 968px) {
+            .hero-image {
+                /* em mobile mostramos a imagem e a posicionamos antes do conteúdo */
+                display: block;
+                position: static;
+                width: 90%;
+                max-width: 420px;
+                padding-top: 56.25%;
+                /* cria proporção 16:9 para exibir background */
+                margin: 0 auto 16px auto;
+                transform: none;
+                border-radius: 8px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+                background-size: cover;
+                background-position: center;
+                order: -1;
+                /* coloca a imagem antes do conteúdo no fluxo flex */
+            }
+
+            .logo {
+                display: none;
+            }
+
+            .hero {
+                text-align: center;
+                flex-direction: column;
+                align-items: center;
+                padding: 0 4%;
+                /* reduz margem lateral em mobile */
+                padding-bottom: 56px;
+                /* espaço extra abaixo do hero para evitar sobreposição */
+            }
+
+            .hero-content {
+                padding-right: 0;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            /* centralizar o parágrafo do hero em mobile */
+            .hero-content p {
+                margin: 0 0 16px 0;
+                padding: 0 4%;
+                /* padding lateral para o texto no mobile */
+                text-align: left;
+                /* alinha o texto à esquerda para leitura */
+                max-width: none;
+            }
+
+            /* evita que o botão fique sobreposto ao h2 da seção seguinte */
+            .hero-content .btn-primary {
+                margin-bottom: 28px;
+                position: relative;
+                z-index: 2;
+            }
+
+            /* ajustar textos em mobile para melhor leitura e reduzir margens */
+            .about {
+                padding: 48px 4% 60px 4%;
+                /* aumenta padding-top e mantém espaço inferior */
+                gap: 20px;
+            }
+
+            .about p {
+                font-size: 1rem;
+                margin: 0 0 16px 0;
+                padding: 0 4%;
+                line-height: 1.6;
+            }
+
+            /* reduzir tamanho do título About em mobile */
+            .about h2 {
+                font-size: 2rem;
+                text-align: center;
+                margin-top: 8px;
+            }
+
+            /* centralizar apenas o span na primeira coluna do about */
+            .about>div:first-child span {
+                display: block;
+                margin: 0 auto 12px;
+                text-align: center;
+                font-size: 30px;
+                font-weight: 600;
+            }
+
+            /* empilhar e centralizar os service-cards em mobile */
+            .services-grid {
+                grid-template-columns: 1fr;
+                /* uma coluna */
+                justify-items: center;
+                /* itens centralizados horizontalmente */
+                gap: 20px;
+            }
+
+            .service-card {
+                width: 100%;
+                max-width: 540px;
+                /* largura controlada para ficar centralizado */
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">MONTEIRO.</div>
+        <nav>
+            <a href="#about">Bio</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#contact">Contato</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="tagline">Líder de Utilidades</span>
+            <h1>Cleriston Monteiro</h1>
+            <p>
+                Líder de Utilidades com quase 20 anos de experiência em operações industriais. Conduzo equipes com
+                foco em segurança, eficiência e melhoria contínua, entregando resultados sustentáveis e desenvolvimento
+                de pessoas.
+            </p>
+            <a href="https://www.bp.com/pt_br/brazil/home/produtos-e-servicos/bpbioenergy.html" target="_blank"
+                class="btn-primary">Empresa onde trabalho</a>
+        </div>
+        <div class="hero-image" role="img" aria-label="Cleriston Monteiro"></div>
+    </section>
+    <section id="about" class="about">
+        <div>
+            <h2>Liderança que transforma operações.</h2>
+            <p>
+                Sou profissional de utilidades com quase 20 anos dedicados à operação industrial e à gestão de
+                equipes. Minha abordagem prioriza segurança, resultados e o desenvolvimento contínuo das pessoas.
+            </p>
+            <p>
+                Ao longo da carreira, implementei iniciativas de otimização que reduziram desperdícios e elevaram a
+                confiabilidade dos sistemas. Acredito em liderança servidora — orientar, delegar com clareza e
+                capacitar times para atingir a excelência.
+            </p>
+        </div>
+
+        <img src="keu.jpg" alt="Cleriston Monteiro" class="about-photo">
+
+    </section>
+
+    <section id="expertise" class="services">
+        <div class="section-title">
+            <span>Serviços</span>
+            <h2>Minha Expertise</h2>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Liderança Operacional</h3>
+                <p style="color: var(--gray);">Gestão de equipes de operação com foco em segurança, disciplina e
+                    eficiência. Tomada de decisão baseada em dados e experiência prática.</p>
+            </div>
+            <div class="service-card">
+                <h3>Gestão de Utilidades</h3>
+                <p style="color: var(--gray);">Otimização de sistemas de vapor, água e energia, implementação de
+                    planos de manutenção e projetos de redução de perdas para aumentar a confiabilidade.</p>
+            </div>
+            <div class="service-card">
+                <h3>Desenvolvimento de Pessoas</h3>
+                <p style="color: var(--gray);">Mentoria, treinamento operacional e formação de líderes de turno. Crio
+                    ambientes onde as pessoas crescem e entregam resultados consistentes.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/clériston-monteiro-a35022202" target="_blank">LinkedIn</a>
+            <a href="https://wa.me/5517997765419" target="_blank">WhatsApp</a>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--gray);">
+            © 2026 Cleriston Monteiro. Líder de Utilidades.
+        </p>
+    </footer>
+
+</body>
+
+</html>
